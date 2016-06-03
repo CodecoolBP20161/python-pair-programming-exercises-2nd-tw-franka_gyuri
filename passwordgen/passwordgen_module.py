@@ -1,6 +1,20 @@
 import random
 
 
+def weak_password():
+    word_list = []
+    with open('README.txt', 'r') as w:
+        for line in w:
+            for word in line.split(' '):
+                word_list.append(word)
+    word_1 = word_list[random.randint(0, len(word_list))]
+    word_2 = word_list[random.randint(0, len(word_list))]
+    while word_1 == word_2:
+        word_2 = word_list[random.randint(0, len(word_list))]
+    password = word_1 + ' ' + word_2
+    return password
+
+
 def passwordgen(length=8):
     length = int(input("Pick a length for your password(min 8 characters)!\n"))
     if length < 8:
@@ -22,7 +36,14 @@ def passwordgen(length=8):
 
 
 def main():
-    print(passwordgen())
+    star_wars = input("Enter 's' for strong password or 'w' for a weak one:\n")
+    if star_wars == "s":
+        print(passwordgen())
+    elif star_wars == "w":
+        print(weak_password())
+    else:
+        print("It's 's' or 'w', dummy!\n")
+        main()
     return
 
 
